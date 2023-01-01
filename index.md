@@ -2,4 +2,5 @@
 
 * [Hello, world!](hello/index.md)
 * [Basic flow control](hello/flow.md)
-* [Loops](loop/index.md)
+* [Loops - 1](loop/index.md)
+* [Classes and Loops - 2](class/index.md)
