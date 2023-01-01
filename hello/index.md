@@ -55,6 +55,8 @@ that they can be run.
 If your project is stored in a sub-directory (say `ljv/hello`) in this example, you must indicate `package hello`
 because Java thinks each sub-directory is a package by default (unless you told it not to do so).
 
+> **TRY IT**: see what happens if you removed the first line `package hello;`
+
 All Java code are wrapped in `class`. Each class must stay in one file with the same name. For example, we have
 `class Hello` here, then the file **MUST** be named `Hello.java`.
 
