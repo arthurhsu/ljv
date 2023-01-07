@@ -27,6 +27,10 @@ public class Deck {
     _cards[_index++] = new Card(card);
   }
 
+  public void deal(Card card) {
+    _cards[_index++] = card;
+  }
+
   public int length() {
     return _index;
   }
@@ -42,7 +46,7 @@ public class Deck {
 
   public boolean hasGhost() {
     for (Card c : _cards) {
-       if (c.toString().equals("3C")) return true;
+       if (c != null && c.toString().equals("3C")) return true;
     }
     return false;
   }

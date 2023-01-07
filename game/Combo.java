@@ -27,7 +27,7 @@ public class Combo {
     }
   }
 
-  public Type detect(Card[] cards) {
+  public Type checkType(Card[] cards) {
     switch (cards.length) {
       case 1: return Type.Single;
       case 2: return isPair(cards) ? Type.Pair : Type.Invalid;
@@ -62,7 +62,7 @@ public class Combo {
   private int[] getSortedRank(Card[] cards) {
     int[] rank = new int[5];
     for (int i = 0; i < 5; ++i) {
-      rank[i] = cards[i].getRawIndex() % 13;
+      rank[i] = cards[i].rank();
     }
     Arrays.sort(rank);
     return rank;
@@ -83,6 +83,10 @@ public class Combo {
 
   private boolean isFlush(Card[] cards) {
     int[] rank = getSortedRank(cards);
+    if (rank[0] == 1 && rank[4] == 13) {  // ACE and K
+      // Special case of 10 J Q K A
+      return (rank[1] == 10 && rank[2] == 11 && rank[3] == 12);
+    }
     for (int i = 0; i < 4; ++i) {
       if (rank[i+1] != rank[i] + 1) {
         return false;

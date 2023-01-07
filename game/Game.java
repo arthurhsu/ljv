@@ -32,7 +32,7 @@ public class Game {
       while (tokenizer.hasMoreTokens()) {
         indices[i++] = Integer.parseInt(tokenizer.nextToken());
       }
-      Combo.Type t = combo.detect(decks[currentPlayer].getCards(indices));
+      Combo.Type t = combo.checkType(decks[currentPlayer].getCards(indices));
       System.out.println(t);
       endGame = true;
     }
