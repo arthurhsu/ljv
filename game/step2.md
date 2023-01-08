@@ -40,13 +40,14 @@ classes with `Test`.
 
 ## Test authoring and debugging
 
-To simplify our test code, we override the constructor of `Card` class so that
-it takes a human readable string to instantiate a `Card` object. To do that,
-two string literal arrays are abstracted out into a private default constructor.
-A default constructor will take no params. Because we don't want a card to be
-created without rank and suit, we mark the default constructor as `private` and
-force all external callers to use the parameterized version of constructors.
-That is one of the very few legit case to use private constructors.
+To simplify our test code, we override the ctor of `Card` class so that
+it takes a human readable string to instantiate a `Card` object. (In Java
+or C++, constructor is usually abbreviated as ctor). To do that,
+two string literal arrays are abstracted out into a private default ctor.
+A default ctor will take no params. Because we don't want a card to be
+created without rank and suit, we mark the default ctor as `private` and
+force all external callers to use the parameterized version of ctor.
+That is one of the very few legit case to use private ctor.
 
 We then add `ComboTest`. The helper method has an interesting signature:
 
@@ -60,6 +61,31 @@ treated as `String[]`. This kind of parameter is called **varargs**, meaning
 variable length arguments. Varargs are generally not recommended in production
 code (tests are usually okay).
 
+The other trick used here is how ctor can call each other:
+
+```java
+public Card(String card) {
+  this();
+
+  // FIXIT: Not really ideal, but settled for now. Inputs are evil.
+  String suit = card.toUpperCase().substring(
+      card.length() - 1, card.length());
+  String rank = card.toUpperCase().substring(0, card.length() - 1);
+  _suit = Arrays.asList(_SUITS).indexOf(suit);
+  _rank = Arrays.asList(_RANKS).indexOf(rank);
+}
+```
+
+In the code you can see there is a `this()` call, which is to invoke the
+default ctor. This is a common technique in Java object construction.
+Also the comment says `FIXME`, another common tag that we add in the code to
+remind ourselves to revisit later when we have time. If there were user given
+strings, it's usually not good to parse it in the ctor. Imagine you are creating
+an array of objects, and one of the object's constructor throws an exception,
+that could be very annoying. There are design patterns to overcome these type
+of things, and it's worth reading once you are fluent at least one programming
+language.
+
 The test actually found a bug in previous version of code and therefore we need
 to fix the bug in combo detection.
 
@@ -68,3 +94,5 @@ to fix the bug in combo detection.
 Writing tests along side writing classes is an approach called "extreme
 programming" and is highly recommended. This will help guarantee your code work
 as expected and be more maintainable.
+
+> EXERCISE: write a test for `Dealer`
