@@ -17,7 +17,8 @@ public class Game {
       for (int i = 0; i < 4; ++i) {
         if (!started && !players[i].canStart()) continue;
         started = true;
-        players[i].play(hand);
+        Hand newHand = players[i].play(hand);
+        hand = newHand.isPass() ? hand : newHand;
         if (players[i].won()) {
           endGame = true;
           System.out.println("Player " + i + " won!");

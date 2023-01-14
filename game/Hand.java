@@ -48,7 +48,12 @@ public final class Hand {
   }
 
   public Card[] getCards() {
-    return (Card[]) _cards.toArray();
+    if (this.isPass()) {
+      return new Card[0];
+    }
+
+    Card[] cards = new Card[_cards.size()];
+    return _cards.toArray(cards);
   }
 
   public Combo.Type getType() {

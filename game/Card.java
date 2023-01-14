@@ -17,6 +17,10 @@ public class Card {
     return _rank + 1;
   }
 
+  public String getRankString() {
+    return _RANKS[_rank];
+  }
+
   public boolean isGhost() {
     return _rank == 2 && _suit == 3;
   }
