@@ -6,14 +6,19 @@ import static org.junit.Assert.*;
 public class DealerTest {
   @Test
   public void testDeal() {
-    Deck[] decks = new Dealer().deal();
+    Player[] players = new Player[4];
+    for (int i = 0; i < 4; ++i) {
+      players[i] = new Player("Player " + i);
+    }
+
+    new Dealer().deal(players);
     boolean[] raw = new boolean[52];
 
     // There should be 4 decks, each has 13 cards
-    assertEquals(decks.length, 4);
-    for (int i = 0; i < decks.length; ++i) {
-      assertEquals(decks[i].length(), 13);
-      Card[] cards = decks[i].getCards();
+    for (int i = 0; i < 4; ++i) {
+      Deck deck = players[i].showDeck();
+      assertEquals(deck.length(), 13);
+      Card[] cards = deck.getCards();
       for (Card c : cards) {
         raw[c.getRawIndex()] = true;
       }

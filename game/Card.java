@@ -17,6 +17,10 @@ public class Card {
     return _rank + 1;
   }
 
+  public boolean isGhost() {
+    return _rank == 2 && _suit == 3;
+  }
+
   public int getRawIndex() {
     return _index;
   }
