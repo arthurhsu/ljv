@@ -33,6 +33,21 @@ Why? Because there is currently no way to signal pass, and we want to use 0
 as pass. Remember, when the display of index changes, the input processing also
 needs to change.
 
+## HashMap
+
+Map is one of the most important data structure we use in Java. The general
+idea of map is to create a mapping from key to value.
+
+In the case of Array, the key can only be integers greater than zero. Also the
+value cannot be too big, otherwise the array will be too big and waste a lot of
+memory. Map does not have such issue.
+
+In our code, we map the results of `Card.suit` to a special character used for
+display.
+
+> THINK POINT: Why not have the `Card` class directly use these special
+characters in the very beginning?
+
 ## Fix existing bugs
 
 The first player is not allowed to pass if 3C is on their hand. After that,
