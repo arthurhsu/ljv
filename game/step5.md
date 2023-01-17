@@ -54,3 +54,11 @@ Next problems in the game play:
 * How can we quickly identify available hands to play?
 * We did not handle when everyone passes on a hand, the hand winner can keep
   playing.
+
+Manually playing actually showed us some more bugs and that is fixed in
+`Game.java` and `Player.java`. However, manually debugging is not ideal in this
+case, and that's mostly caused by lacking unit tests for `Game` and `Player`.
+
+One technique to identify game play issues is to let computer play the games
+and see if the games are played smoothly. Therefore we need to do teach
+computers to find available hands and determine what to play.

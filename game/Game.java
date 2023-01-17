@@ -13,16 +13,32 @@ public class Game {
     boolean endGame = false;
     boolean started = false;
     Hand hand = Hand.pass();
+    boolean cannotPass = true;
+    int lastWinner = -1;
     while (!endGame) {
       for (int i = 0; i < 4; ++i) {
         if (!started && !players[i].canStart()) continue;
-        started = true;
-        Hand newHand = players[i].play(hand);
-        hand = newHand.isPass() ? hand : newHand;
+        if (lastWinner == i) {
+          hand = Hand.pass();
+          cannotPass = true;
+        }
+        if (!started) {
+          lastWinner = i;
+          started = true;
+          cannotPass = true;
+        }
+        Hand newHand = players[i].play(hand, cannotPass);
+        if (!newHand.isPass()) {
+          hand = newHand;
+          lastWinner = i;
+          cannotPass = false;
+        }
         if (players[i].won()) {
           endGame = true;
           System.out.println("Player " + i + " won!");
           break;
+        } else {
+          System.out.println("Player " + lastWinner + " has upper hand");
         }
       }
     }

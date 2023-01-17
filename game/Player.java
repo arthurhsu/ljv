@@ -50,18 +50,26 @@ public class Player {
     return indices;
   }
 
-  public Hand play(Hand hand) {
+  public Hand play(Hand hand, boolean cannotPass) {
     boolean validInput = false;
     Hand myHand = Hand.pass();
     do {
       try {
         int[] indices = getUserInput();
+        for (int i = 0; i < indices.length; ++i) {
+          if (indices[i] >= hand.getCards().length) {
+            throw new IllegalArgumentException("Invalid input");
+          }
+        }
         boolean mustPlay3C = hand.isPass() && _deck.hasGhost();
         
         // Check if user said pass
         if (indices.length == 1 && indices[0] == -1) {
           if (mustPlay3C) {
             throw new IllegalArgumentException("Must play 3C");
+          }
+          if (cannotPass) {
+            throw new IllegalArgumentException("Must play a hand");
           }
           break;
         }
