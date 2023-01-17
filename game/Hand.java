@@ -32,11 +32,22 @@ public final class Hand {
     _cards = new ArrayList<>(Arrays.asList(cards));
   }
 
-  public boolean canWin(Hand hand) {
+  public boolean canWin(Hand hand) throws IllegalStateException {
     if (hand.isPass()) return true;
 
-    // TODO: implement
-    return false;
+    if (this.isPass() || (
+        this._type != Combo.Type.FourOfAKind &&
+        (this._type != Combo.Type.RoyalFlush &&
+            hand.getType() != Combo.Type.Flush) &&
+        this._type != hand.getType())) {
+      throw new IllegalStateException("Attempt to test invalid hands");
+    }
+
+    Card[] temp = new Card[_cards.size()];
+    int theirs = _combo.getWeight(hand.getType(), hand.getCards());
+    int ours = _combo.getWeight(_type, _cards.toArray(temp));
+
+    return ours > theirs;
   }
 
   public boolean hasGhost() {

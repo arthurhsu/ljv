@@ -113,4 +113,36 @@ public class Combo {
     }
     return isFlush(cards);
   }
+
+  public int getWeight(Type type, Card[] cards) {
+    int[] weight = new int[cards.length];
+    for (int i = 0; i < cards.length; ++i) {
+      weight[i] = cards[i].weight();
+    }
+
+    switch(type) {
+      case Single:
+        return weight[0];
+      case Pair:
+        return Math.max(weight[0], weight[1]);
+      case RoyalFlush:
+        Arrays.sort(weight);
+        return weight[4] * 10;
+      case Flush:
+        Arrays.sort(weight);
+        return weight[4];
+      case FullHouse:
+        Arrays.sort(weight);
+        return (weight[1] / 10 == weight[2] / 10) ? weight[2] : weight[4];
+      case FourOfAKind:
+        Arrays.sort(weight);
+        if (weight[1] - weight[0] == 1) {
+          return weight[3] + 10000;
+        } else {
+          return weight[4] + 10000;
+        }
+      default:
+        return -1;
+    }
+  }
 }

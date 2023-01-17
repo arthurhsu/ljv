@@ -29,6 +29,22 @@ public class Card {
     return _index;
   }
 
+  public int weight() {
+    int ret = 4 - _suit;
+    switch (_rank) {
+      case 0:  // A
+        ret += 140;
+        break;
+      case 1:  // 2
+        ret += 150;
+        break;
+      default:
+        ret += (_rank + 1) * 10;
+        break;
+    }
+    return ret;
+  }
+
   public String toString() {
     return _RANKS[_rank] + _SUITS[_suit];
   }
