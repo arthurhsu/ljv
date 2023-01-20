@@ -43,11 +43,7 @@ public final class Hand {
       throw new IllegalStateException("Attempt to test invalid hands");
     }
 
-    Card[] temp = new Card[_cards.size()];
-    int theirs = _combo.getWeight(hand.getType(), hand.getCards());
-    int ours = _combo.getWeight(_type, _cards.toArray(temp));
-
-    return ours > theirs;
+    return getWeight() > hand.getWeight();
   }
 
   public boolean hasGhost() {
@@ -69,5 +65,9 @@ public final class Hand {
 
   public Combo.Type getType() {
     return _type;
+  }
+
+  public int getWeight() {
+    return _combo.getWeight(_type, getCards());
   }
 }
